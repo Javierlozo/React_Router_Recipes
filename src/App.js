@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, UseEffect, useEffect } from "react";
 import { Router, Link } from "@reach/router";
 import recipesDb from "./recipesDb";
 import { Card } from "@material-ui/core";
@@ -12,9 +12,14 @@ const Recipes = (props) => {
 };
 
 const RecipeIndex = () => {
+  const [recipes, setRecipes] = useState([]);
+  useEffect(() => {
+    //Do a request to an API/ server/db. Async fn usually
+    setRecipes(recipesDb);
+  });
   return (
     <div>
-      {recipesDb.map((recipe) => {
+      {recipes.map((recipe) => {
         return (
           <Card style={{ margin: 20, padding: 10 }}>
             <div>{recipe.name}</div>
@@ -33,7 +38,7 @@ const Recipe = (props) => {
 };
 
 const NotFound = () => {
-  return <div>NotFound</div>;
+  return <div>Sorry, there is no page at this location!</div>;
 };
 
 function App() {
