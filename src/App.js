@@ -11,7 +11,7 @@ const Recipes = (props) => {
   return <div>{props.children}</div>;
 };
 
-const RecipeIndex = () => {
+const RecipeIndex = (props) => {
   const [recipes, setRecipes] = useState([]);
   useEffect(() => {
     //Do a request to an API/ server/db. Async fn usually
@@ -21,8 +21,11 @@ const RecipeIndex = () => {
     <div>
       {recipes.map((recipe) => {
         return (
-          <Card style={{ margin: 20, padding: 10 }}>
-            <div>{recipe.name}</div>
+          <Card
+            onClick={() => props.navigate(`/recipes/${recipe.id}`)}
+            style={{ margin: 20, padding: 10 }}
+          >
+            <div>{recipe.food}</div>
             <img src={recipe.image} alt={"recipe"} width={200} />
             <div>{recipe.instructions}</div>
             <div>{recipe.id}</div>
