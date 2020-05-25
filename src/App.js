@@ -1,5 +1,5 @@
 import React from "react";
-import { Router } from "@reach/router";
+import { Router, Link } from "@reach/router";
 
 const Home = () => {
   return <div>Home</div>;
@@ -24,6 +24,10 @@ const NotFound = () => {
 function App() {
   return (
     <div>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/recipes">Recipes</Link>
+      </nav>
       <Router>
         <Home path="/" />
         <Recipes path="recipes">
