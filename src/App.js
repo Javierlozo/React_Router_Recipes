@@ -1,5 +1,5 @@
 import React, { useState, UseEffect, useEffect } from "react";
-import { Router, Link } from "@reach/router";
+import { Router, Link, navigate } from "@reach/router";
 import recipesDb from "./recipesDb";
 import { Card } from "@material-ui/core";
 
@@ -11,7 +11,7 @@ const Recipes = (props) => {
   return <div>{props.children}</div>;
 };
 
-const RecipeIndex = (props) => {
+const RecipeIndex = () => {
   const [recipes, setRecipes] = useState([]);
   useEffect(() => {
     //Do a request to an API/ server/db. Async fn usually
@@ -20,17 +20,7 @@ const RecipeIndex = (props) => {
   return (
     <div>
       {recipes.map((recipe) => {
-        return (
-          <Card
-            onClick={() => props.navigate(`/recipes/${recipe.id}`)}
-            style={{ margin: 20, padding: 10 }}
-          >
-            <div>{recipe.food}</div>
-            <img src={recipe.image} alt={"recipe"} width={200} />
-            <div>{recipe.instructions}</div>
-            <div>{recipe.id}</div>
-          </Card>
-        );
+        return <RecipesListCard recipe={recipe} />;
       })}
     </div>
   );
@@ -42,12 +32,33 @@ const Recipe = (props) => {
     //Would be an async api call
     setRecipe(recipesDb.find((recipe) => recipe.id === Number(props.recipeId)));
   }, []);
+  return <IndividualRecipeCard recipe={recipe} />;
+};
+
+const RecipesListCard = (props) => {
   return (
-    <Card style={{ height: "70vh", margin: 20, padding: 10 }}>
-      <div>{recipe.food}</div>
-      <img src={recipe.image} alt={"recipe"} width={200} />
-      <div>{recipe.instructions}</div>
-      <div>{recipe.id}</div>
+    <Card
+      onClick={() => navigate(`/recipes/${props.recipe.id}`)}
+      style={{ margin: 20, padding: 10 }}
+    >
+      <div>{props.recipe.food}</div>
+      <img src={props.recipe.image} alt={"recipe"} width={200} />
+      <div>{props.recipe.instructions}</div>
+      <div>{props.recipe.id}</div>
+    </Card>
+  );
+};
+
+const IndividualRecipeCard = (props) => {
+  return (
+    <Card
+      onClick={() => navigate(`/recipes/${props.recipe.id}`)}
+      style={{ margin: 20, padding: 10 }}
+    >
+      <div>{props.recipe.food}</div>
+      <img src={props.recipe.image} alt={"recipe"} width={200} />
+      <div>{props.recipe.instructions}</div>
+      <div>{props.recipe.id}</div>
     </Card>
   );
 };
