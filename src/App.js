@@ -1,5 +1,7 @@
 import React from "react";
 import { Router, Link } from "@reach/router";
+import recipesDb from "./recipesDb";
+import { Card } from "@material-ui/core";
 
 const Home = () => {
   return <div>Home</div>;
@@ -10,7 +12,20 @@ const Recipes = (props) => {
 };
 
 const RecipeIndex = () => {
-  return <div>RecipeIndex</div>;
+  return (
+    <div>
+      {recipesDb.map((recipe) => {
+        return (
+          <Card style={{ margin: 20, padding: 10 }}>
+            <div>{recipe.name}</div>
+            <img src={recipe.image} alt={"recipe"} width={200} />
+            <div>{recipe.instructions}</div>
+            <div>{recipe.id}</div>
+          </Card>
+        );
+      })}
+    </div>
+  );
 };
 
 const Recipe = (props) => {
@@ -23,7 +38,7 @@ const NotFound = () => {
 
 function App() {
   return (
-    <div>
+    <div style={{ backgroundColor: "lightGrey", minHeight: "100vh" }}>
       <nav>
         <Link to="/">Home</Link>
         <Link to="/recipes">Recipes</Link>
