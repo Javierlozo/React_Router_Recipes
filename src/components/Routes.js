@@ -1,19 +1,19 @@
 import React from "react";
 import { Router } from "@reach/router";
-import Home from "../components/Home";
+import HomePage from "../pages/HomePage";
 import RecipeIndex from "../components/RecipeIndex";
 import Recipe from "../components/Recipe";
-import Recipes from "../components/Recipes";
+import RecipesPage from "../pages/RecipesPage";
 import NotFound from "../components/NotFound";
 
 const Routes = () => {
   return (
     <Router>
-      <Home path="/" />
-      <Recipes path="recipes">
+      <HomePage path="/" />
+      <RecipesPage path="recipes">
         <Recipe path=":recipeId" />
         <RecipeIndex path="/" />
-      </Recipes>
+      </RecipesPage>
       <NotFound default />
     </Router>
   );
